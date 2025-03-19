@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'java -jar target/hello-app-0.0.1-SNAPSHOT.jar &' // Runs the JAR in the background
+                bat 'java -jar target/hello-app-0.0.1-SNAPSHOT.jar &' // Runs the JAR in the background
             }
         }
     }
