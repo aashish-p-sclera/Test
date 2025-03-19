@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package' // Builds the Spring Boot JAR
+                bat 'mvn clean package' // Builds the Spring Boot JAR
             }
         }
         stage('Manual Approval') {
