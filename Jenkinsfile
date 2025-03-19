@@ -1,9 +1,12 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven' // Tells Jenkins to use the Maven installation named 'Maven'
+    }
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/aashishpanthi13/Test.git', branch: 'main' // Replace with your repo URL
+                git url: 'https://github.com/aashishpanthi13/Test.git', branch: 'main'
             }
         }
         stage('Build') {
@@ -13,12 +16,12 @@ pipeline {
         }
         stage('Manual Approval') {
             steps {
-                input message: 'Do you want to deploy this change?', ok: 'Deploy' // Waits for user approval
+                input message: 'Do you want to deploy this change?', ok: 'Deploy'
             }
         }
         stage('Deploy') {
             steps {
-                bat 'java -jar target/hello-app-0.0.1-SNAPSHOT.jar &' // Runs the JAR in the background
+                bat 'start java -jar target/hello-app-0.0.1-SNAPSHOT.jar' // Runs the JAR in a new window
             }
         }
     }
