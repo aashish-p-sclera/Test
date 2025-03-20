@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven' // Tells Jenkins to use the Maven installation named 'Maven'
+        maven 'Maven'
     }
     stages {
         stage('Checkout') {
@@ -11,7 +11,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'mvn clean package' // Builds the Spring Boot JAR
+                bat 'mvn clean package'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t demo1:latest .'
             }
         }
         stage('Manual Approval') {
@@ -21,7 +26,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                bat 'start java -jar target/hello-app-0.0.1-SNAPSHOT.jar' // Runs the JAR in a new window
+                bat 'docker stop demo1-container || exit 0'
+                bat 'docker rm demo1-container || exit 0'
+                bat 'docker run -d --name demo1-container -p 8080:8080 demo1:latest'
             }
         }
     }
