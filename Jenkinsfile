@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout and Deploy') {
             steps {
                 script {
-                    git url: 'https://github.com/aashish-p-sclera/Test.git', branch: 'main'
+                    git url: 'https://github.com/aashish-p-sclera/Test.git', branch: 'main'  // Updated URL
                     bat 'mvn clean package liquibase:update'
                     bat 'docker build -t demo1:latest .'
                     bat 'docker stop demo1-container || exit 0'
@@ -31,3 +31,4 @@ pipeline {
             echo 'Deployment failed!'
         }
     }
+}
